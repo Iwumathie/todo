@@ -16,17 +16,16 @@
         <h1>Mathie's Todo</h1>
         <form>
           <input class="todo-input" type="text" placeholder="Add your todo" />
+
+          <select class="select">
+            <option placeholder="select">select</option>
+            <option value="all">All</option>
+            <option value="successful">Completed</option>
+            <option value="Uncompleted">Uncompleted</option>
+          </select>
           <button type="submit">add</button>
         </form>
-        <ul class="todos">
-          <!-- <li class="list">
-            What do you want
-            <div class="icons">
-              <ion-icon class="check" name="checkmark-outline"></ion-icon>
-              <ion-icon class="delete" name="close-outline"></ion-icon>
-            </div>
-          </li> -->
-        </ul>
+        <ul class="todos"></ul>
       </div>
     </div>
 
