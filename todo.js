@@ -9,7 +9,6 @@ const selBox = document.querySelector(".select")
 form.addEventListener("submit", addTodo )
 todoDiv.addEventListener("click", updateTodo)
 
-let todoArray = []
 
 function addTodo (e) {
     e.preventDefault()
@@ -28,7 +27,9 @@ function addTodo (e) {
             const myTodo = document.createElement('div')
             myTodo.classList.add("list") 
             myTodo.innerText = todoInput.value
-            todoArray.push(todoInput.value)  
+            
+            // ADD TODOS TO LOCALSTORAGE
+          localDatabase(todoInput.value)
             const icon = document.createElement('li')
             icon.classList.add('icons')
             icon.innerHTML = `<ion-icon class="check" name="checkmark-outline"></ion-icon>
@@ -62,11 +63,11 @@ function updateTodo(e){
 
 
 
-selBox.addEventListener("click", searchTodos )
+selBox.addEventListener("click", searchTodos)
 
 
 function searchTodos (e){
-    console.log(todoArray);
+    
     const selector = e.target.value
     const todos = todoDiv.childNodes
     todos.forEach(todo=>{
@@ -92,12 +93,47 @@ function searchTodos (e){
                 break;
         }
     })
-    
 }
 
 
+const localDatabase = (localTodo)=>{
+    let todos;
+    if(localStorage.getItem("Todos") === null){
+        todos = []
+    } else{
+        todos = JSON.parse(localStorage.getItem("Todos"))
+     
+    }
+    todos.push(localTodo)
+    localStorage.setItem("Todos", JSON.stringify(todos))
+}
 
 
+const displayTodo = ()=>{
+    let todos ;
+    if(localStorage.getItem("Todos") === null ){
+        todos = []
+    }
+    else{
+        todos = JSON.parse(localStorage.getItem("Todos"))
+    }
+    todos.map((todo)=>{
+        const myTodo = document.createElement('div')
+        myTodo.classList.add("list") 
+        myTodo.innerText = todo
+        
+        const icon = document.createElement('li')
+        icon.classList.add('icons')
+        icon.innerHTML = `<ion-icon class="check" name="checkmark-outline"></ion-icon>
+        <ion-icon class="delete" name="close-outline"></ion-icon>`
+        myTodo.appendChild(icon)
+        todoDiv.appendChild(myTodo)
+        
+    
+    })
+}
+
+document.addEventListener("DOMContentLoaded", displayTodo)
 
 
 
