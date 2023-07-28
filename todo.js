@@ -45,7 +45,8 @@ function updateTodo(e){
    const element = e.target 
    if(element.classList[0] === "delete"){
         const parentEl = element.parentElement.parentElement;
-        parentEl.remove()  
+        parentEl.remove()
+        RemoveTodo(parentEl)  
     }
     if(element.classList[0] === "check"){
         const parentEl = element.parentElement.parentElement;
@@ -136,7 +137,24 @@ const displayTodo = ()=>{
 document.addEventListener("DOMContentLoaded", displayTodo)
 
 
+const RemoveTodo = (todo)=>{
+    let todos ;
+    if(localStorage.getItem("Todos") === null ){
+        todos = []
+    }
+    else{
+        todos = JSON.parse(localStorage.getItem("Todos"))
+    }
+    const targetTodo = todo.innerText
+    todos.splice(todos.indexOf(targetTodo), 1)
+    localStorage.setItem("Todos", JSON.stringify(todos))
+} 
 
+
+const array = ["A", "b", "c"]
+
+console.log(array.splice(array.indexOf("b"),1));
+console.log(array);
 
 
 
